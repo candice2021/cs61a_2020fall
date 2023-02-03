@@ -84,21 +84,6 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
         total_score = roll_dice(num_rolls, dice)
     else:
         total_score = free_bacon(opponent_score)
-
-    if opponent_score == 0:
-        return total_score
-
-    min_score = min(total_score, opponent_score)
-    largest_common_factor = min_score 
-    while largest_common_factor >= 10:
-        curren_player_divisor = total_score % largest_common_factor
-        opponent_player_divisor = opponent_score % largest_common_factor
-        if curren_player_divisor == 0 and opponent_player_divisor:
-            extra_score = roll_dice(num_rolls)
-            total_score += extra_score
-        else:
-            largest_common_factor -= 1
-
     return total_score
 
     # END PROBLEM 3
@@ -122,7 +107,22 @@ def swine_align(player_score, opponent_score):
     False
     """
     # BEGIN PROBLEM 4a
-    "*** YOUR CODE HERE ***"
+    if opponent_score == 0:
+        # print('swine_align:False')
+        return False
+    min_score = min(player_score, opponent_score)
+    largest_common_factor = min_score 
+    while largest_common_factor >= 10:
+        curren_player_divisor = player_score % largest_common_factor
+        opponent_player_divisor = opponent_score % largest_common_factor
+        if curren_player_divisor == 0 and opponent_player_divisor == 0:
+            # print('swine_align:True')
+            return True
+        else:
+            largest_common_factor -= 1
+
+    # print('swine_align:False')
+    return False
     # END PROBLEM 4a
 
 
@@ -146,8 +146,10 @@ def pig_pass(player_score, opponent_score):
     # BEGIN PROBLEM 4b
     different_both_player = opponent_score - player_score
     if 0 < different_both_player < 3:
+        # print('pig_pass:True')
         return True
     else:
+        # print('pig_pass:False')
         return False
     # END PROBLEM 4b
 
@@ -187,7 +189,41 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     """
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    while score0 < goal and score1  < goal:
+        if who == 0:
+            num_turn = strategy0(score0, score1)
+            score0 += take_turn(num_turn, score1, dice)
+            current, opponent = score0, score1
+
+            # print('0', score0)
+        else:
+            num_turn = strategy1(score1, score0)
+            score1 += take_turn(num_turn, score0, dice)
+            current, opponent = score1, score0
+
+            # print('1', score1)
+
+        # print(current,opponent)
+        extra_turn_or_not = extra_turn(current, opponent)
+        # print(extra_turn_or_not)
+        while extra_turn_or_not :
+            # print('excute extra')
+            if score0 < goal and score1 < goal:
+                if who == 0:
+                    extra_score = take_turn(num_turn, score1, dice)
+                    score0 += extra_score
+                    # print('extra score0')
+                else:
+                    extra_score = take_turn(num_turn, score0, dice)
+                    score1 += extra_score
+                    # print('extra score1')
+                
+            else:
+                return score0, score1
+
+
+        who = other(who)
+
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
