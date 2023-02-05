@@ -200,23 +200,18 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
             num_turn = strategy1(score1, score0)
             score1 += take_turn(num_turn, score0, dice)
             current, opponent = score1, score0
-
             # print('1', score1)
 
-        # print(current,opponent)
         extra_turn_or_not = extra_turn(current, opponent)
-        # print(extra_turn_or_not)
         while extra_turn_or_not :
             # print('excute extra')
             if score0 < goal and score1 < goal:
+                extra_score = take_turn(num_turn, opponent, dice)
+                current += extra_score
                 if who == 0:
-                    extra_score = take_turn(num_turn, score1, dice)
-                    score0 += extra_score
-                    # print('extra score0')
+                    score0 = current
                 else:
-                    extra_score = take_turn(num_turn, score0, dice)
-                    score1 += extra_score
-                    # print('extra score1')
+                    score1 = current
                 
             else:
                 return score0, score1
