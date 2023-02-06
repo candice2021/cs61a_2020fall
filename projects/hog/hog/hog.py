@@ -108,7 +108,6 @@ def swine_align(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4a
     if opponent_score == 0:
-        # print('swine_align:False')
         return False
     min_score = min(player_score, opponent_score)
     largest_common_factor = min_score 
@@ -116,12 +115,10 @@ def swine_align(player_score, opponent_score):
         curren_player_divisor = player_score % largest_common_factor
         opponent_player_divisor = opponent_score % largest_common_factor
         if curren_player_divisor == 0 and opponent_player_divisor == 0:
-            # print('swine_align:True')
             return True
         else:
             largest_common_factor -= 1
 
-    # print('swine_align:False')
     return False
     # END PROBLEM 4a
 
@@ -146,10 +143,8 @@ def pig_pass(player_score, opponent_score):
     # BEGIN PROBLEM 4b
     different_both_player = opponent_score - player_score
     if 0 < different_both_player < 3:
-        # print('pig_pass:True')
         return True
     else:
-        # print('pig_pass:False')
         return False
     # END PROBLEM 4b
 
