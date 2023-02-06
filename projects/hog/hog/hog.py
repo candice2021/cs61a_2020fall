@@ -190,34 +190,18 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     while score0 < goal and score1  < goal:
+        
         if who == 0:
             num_turn = strategy0(score0, score1)
             score0 += take_turn(num_turn, score1, dice)
-            current, opponent = score0, score1
-
-            # print('0', score0)
+            if not extra_turn(score0, score1):
+                who = other(who)
         else:
             num_turn = strategy1(score1, score0)
             score1 += take_turn(num_turn, score0, dice)
-            current, opponent = score1, score0
-            # print('1', score1)
-
-        extra_turn_or_not = extra_turn(current, opponent)
-        while extra_turn_or_not :
-            # print('excute extra')
-            if score0 < goal and score1 < goal:
-                extra_score = take_turn(num_turn, opponent, dice)
-                current += extra_score
-                if who == 0:
-                    score0 = current
-                else:
-                    score1 = current
-                
-            else:
-                return score0, score1
-
-
-        who = other(who)
+            current_score, opponent_score = score1, score0
+            if not extra_turn(score1, score0):
+                who = other(who)
 
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
