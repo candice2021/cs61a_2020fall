@@ -369,7 +369,25 @@ def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
     1
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    num = 0
+    max_ave_score = 0
+    max_ave_score_times = 1
+    while num < 10:
+        # notice need to pass a func into make_averaged(),rather funtion call as argument
+        num += 1
+        trials_averaged_func = make_averaged(roll_dice, trials_count)
+        each_times_ave = trials_averaged_func(num, dice)
+        # print(each_times_ave)
+        if each_times_ave > max_ave_score:
+            max_ave_score = each_times_ave
+            max_ave_score_times = num
+
+        elif each_times_ave == max_ave_score :
+            max_ave_score_times = num - 1
+        # print(num )
+    return max_ave_score_times
+
+
     # END PROBLEM 9
 
 
