@@ -294,7 +294,7 @@ def announce_highest(who, last_score=0, running_high=0):
                 running_highest = increase0
             else:
                 running_highest = running_high 
-            return announce_highest(who,score0, running_highest)
+            return announce_highest(who, score0, running_highest)
 
             
         else:
@@ -346,7 +346,16 @@ def make_averaged(original_function, trials_count=1000):
     3.0
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    def trials_averaged(*args):
+        num = 1
+        total = 0
+        while num <= trials_count:
+            result = original_function(*args)
+            total += result
+            num += 1
+        ave = total / trials_count
+        return ave
+    return trials_averaged
     # END PROBLEM 8
 
 
