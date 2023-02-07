@@ -377,14 +377,12 @@ def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
         num += 1
         trials_averaged_func = make_averaged(roll_dice, trials_count)
         each_times_ave = trials_averaged_func(num, dice)
-        # print(each_times_ave)
         if each_times_ave > max_ave_score:
             max_ave_score = each_times_ave
             max_ave_score_times = num
-
         elif each_times_ave == max_ave_score :
             max_ave_score_times = num - 1
-        # print(num )
+
     return max_ave_score_times
 
 
@@ -437,7 +435,11 @@ def bacon_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     rolls NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    return 6  # Replace this statement
+    roll_free_point = free_bacon(opponent_score)
+    if roll_free_point >= cutoff:
+        return 0
+    else:
+        return num_rolls
     # END PROBLEM 10
 
 
