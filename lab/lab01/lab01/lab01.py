@@ -61,7 +61,6 @@ def double_eights(n):
     False
     """
     flag = False
-    pre_num, last_num = 0, 0
     last_but_digit = n
     if n >= 10:
         while last_but_digit > 0 :
